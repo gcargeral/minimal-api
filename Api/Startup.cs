@@ -211,6 +211,19 @@ public class Startup
             .RequireAuthorization()
             .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm" })
             .WithTags("Administradores");
+            
+            endpoints.MapDelete("/Administradores/{id}", ([FromRoute] int id, IAdministradorServico administradorServico) => {
+                var adm = administradorServico.BuscaPorId(id);
+                if(adm == null) return Results.NotFound();
+
+                administradorServico.Apagar(adm);
+
+                return Results.NoContent();
+            })
+            .RequireAuthorization()
+            .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm" })
+            .WithTags("Administradores");
+            
             #endregion
 
             #region Veiculos

@@ -43,4 +43,10 @@ public class AdministradorServico : IAdministradorServico
 
         return query.ToList();
     }
+
+    public void Apagar(Administrador administrador)
+    {
+        _contexto.Administradores.Remove(administrador);
+        _contexto.SaveChanges();
+    }
 }
